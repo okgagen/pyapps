@@ -31,8 +31,10 @@ baseline = sum(baseline_values[:-25]) / len(baseline_values[:-25])
 print('Baseline: ', baseline)
 
 while True:
-    temperature = bmp280.get_temperature()
+    temperatureC = bmp280.get_temperature()
+    temperatureF = temperatureC * 1.8 + 32
     pressure = bmp280.get_pressure()
-    altitude = bmp280.get_altitude(qnh=baseline)
-    print(datetime.now(), 'Temperature: {:05.2f} *C, Pressure: {:05.2f} hPa, Altitude: {:05.2f} metter'.format(temperature, pressure, altitude))
+    altitudeM = bmp280.get_altitude(qnh=baseline)
+    altitudeF = altitudeM * 3.28084
+    print(datetime.now(), 'Temperature: {:05.2f} *F, {:05.2f} *C, Pressure: {:05.2f} hPa, Altitude: {:05.2f} Ft, {:05.2f} meters'.format(temperatureF, temperatureC, pressure, altitudeF, altitudeM))
     time.sleep(30)
